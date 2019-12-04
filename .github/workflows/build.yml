@@ -6,12 +6,19 @@ on:
       - 'docker'
 
 jobs:
-  build:
-    runs-on: windows-latest
-    steps:
+ R_latest:
+   name: Test on latest
+   runs-on: windows-latest
+   container: 
+      image: cr.microsoft.com/windows/servercore:ltsc2019
+   steps:
     - uses: actions/checkout@v1
-    - name: check container
-      uses: docker://mcr.microsoft.com/windows/servercore:ltsc2019
-      with:
-        args: echo "This is from the container"
+    - name: Setup Nuget.exe
+      uses: warrenbuckley/Setup-Nuget@v1
+    - name: Nuget restore
+      run: nuget restore DotnetCoreConsole\DotnetCoreConsole.sln
+    - name: msbuild
+      run: .\scripts\buildMaster.ps1
+      shell: powershell
+   
     
