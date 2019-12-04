@@ -8,7 +8,7 @@ on:
 jobs:
  R_latest:
    name: Test on latest
-   runs-on: windows-latest
+   runs-on: ubuntu-latest
    container: 
       image: cr.microsoft.com/windows/servercore:ltsc2019
    steps:
