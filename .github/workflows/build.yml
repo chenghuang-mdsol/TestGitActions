@@ -3,17 +3,15 @@ name: CI
 on: 
   push:
     branches:
-      - 'master'
+      - 'docker'
 
 jobs:
   build:
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Setup Nuget.exe
-      uses: warrenbuckley/Setup-Nuget@v1
-    - name: Nuget restore
-      run: nuget restore DotnetCoreConsole\DotnetCoreConsole.sln
-    - name: msbuild
-      run: .\scripts\buildMaster.ps1
-      shell: powershell
+    - name: check container
+      uses: docker://mcr.microsoft.com/windows/servercore:ltsc2019
+      with:
+        args: echo "This is from the container"
+    
