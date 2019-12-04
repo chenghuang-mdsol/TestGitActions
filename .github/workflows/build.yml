@@ -8,10 +8,12 @@ on:
 jobs:
  R_latest:
    name: Test on latest
-   runs-on: ubuntu-latest
-   container: 
-      image: cr.microsoft.com/windows/servercore:ltsc2019
+   runs-on: windows-latest
+   #container: 
+   #   image: cr.microsoft.com/windows/servercore:ltsc2019
    steps:
+    - name: run docker
+      run: docker run mcr.microsoft.com/windows/servercore:ltsc2019
     - uses: actions/checkout@v1
     - name: Setup Nuget.exe
       uses: warrenbuckley/Setup-Nuget@v1
