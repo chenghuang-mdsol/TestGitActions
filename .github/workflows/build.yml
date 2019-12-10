@@ -31,5 +31,8 @@ jobs:
     - name: env vars GITHUB_SHA
       run: Write-Host "${env:GITHUB_SHA}"
       shell: powershell
+    - name: ssh
+      run: ls ~\ssh\
+      shell: powershell
    
     
