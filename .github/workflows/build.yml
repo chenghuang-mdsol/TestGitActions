@@ -29,7 +29,7 @@ jobs:
           -OutFile C:\TypemockIsolatorSuite-8.8.0.0.msi; `
           Start-Process 'C:\TypemockIsolatorSuite-8.8.0.0.msi' -ArgumentList '/qn /quiet /l*v C:\typemock_install.log /norestart' -Wait; `
           $typeMockExe = (gci 'C:\Program Files (x86)\Typemock\Isolator\*\BuildScripts\TMockRunner.exe' | Select-Object -First 1).FullName; `
-          & $typeMockExe -register ${{ secrets:TYPEMOCK_COMPANY }} ${{ secrets:TYPEMOCK_LICENSE }};
+          & $typeMockExe -register ${{ secrets.TYPEMOCK_COMPANY }} ${{ secrets.TYPEMOCK_LICENSE }};
     #- name: msbuild
     #  run: .\scripts\buildMaster.ps1
     #  shell: powershell
