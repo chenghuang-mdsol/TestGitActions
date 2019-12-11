@@ -12,8 +12,8 @@ jobs:
    #container: 
    #   image: cr.microsoft.com/windows/servercore:ltsc2019
    steps:
-    #- name: run docker
-    #  run: docker run mcr.microsoft.com/windows/servercore:ltsc2019
+    - name: run docker
+      run: docker run mcr.microsoft.com/windows:1809
     - uses: actions/checkout@v1
     #- name: Setup Nuget.exe
     #  uses: warrenbuckley/Setup-Nuget@v1
