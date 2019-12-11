@@ -21,7 +21,7 @@ jobs:
     #  run: nuget restore DotnetCoreConsole\DotnetCoreConsole.sln
     - name: Get typemock and register
       run : |
-        $headers = @{ 'X-JFrog-Art-Api' = ${{ secrets.ARTIFACTORY_TOKEN }} };
+        $headers = @{ 'X-JFrog-Art-Api' = '${{ secrets.ARTIFACTORY_TOKEN }}' };
         Invoke-WebRequest `
           -UseBasicParsing `
           -Uri https://mdsol.jfrog.io/mdsol/rave-files/web-base/TypemockIsolatorSuite-8.8.0.0.msi `
@@ -29,7 +29,7 @@ jobs:
           -OutFile C:\TypemockIsolatorSuite-8.8.0.0.msi; `
           Start-Process 'C:\TypemockIsolatorSuite-8.8.0.0.msi' -ArgumentList '/qn /quiet /l*v C:\typemock_install.log /norestart' -Wait; `
           $typeMockExe = (gci 'C:\Program Files (x86)\Typemock\Isolator\*\BuildScripts\TMockRunner.exe' | Select-Object -First 1).FullName; `
-          & $typeMockExe -register ${{ secrets.TYPEMOCK_COMPANY }} ${{ secrets.TYPEMOCK_LICENSE }};
+          & $typeMockExe -register '${{ secrets.TYPEMOCK_COMPANY }}' '${{ secrets.TYPEMOCK_LICENSE }}';
       shell: powershell
     #- name: msbuild
     #  run: .\scripts\buildMaster.ps1
