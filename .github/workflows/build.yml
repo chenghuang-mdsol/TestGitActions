@@ -12,13 +12,24 @@ jobs:
    #container: 
    #   image: cr.microsoft.com/windows/servercore:ltsc2019
    steps:
-    - name: run docker
-      run: docker run mcr.microsoft.com/windows:1809
+    #- name: run docker
+    #  run: docker run mcr.microsoft.com/windows:1809
     - uses: actions/checkout@v1
     #- name: Setup Nuget.exe
     #  uses: warrenbuckley/Setup-Nuget@v1
     #- name: Nuget restore
     #  run: nuget restore DotnetCoreConsole\DotnetCoreConsole.sln
+    - name: Get typemock and register
+      run : |
+        $headers = @{ 'X-JFrog-Art-Api' = ${{ secrets.ARTIFACTORY_TOKEN }} };
+        Invoke-WebRequest `
+          -UseBasicParsing `
+          -Uri https://mdsol.jfrog.io/mdsol/rave-files/web-base/TypemockIsolatorSuite-8.8.0.0.msi `
+          -Headers $Headers `
+          -OutFile C:\TypemockIsolatorSuite-8.8.0.0.msi; `
+          Start-Process 'C:\TypemockIsolatorSuite-8.8.0.0.msi' -ArgumentList '/qn /quiet /l*v C:\typemock_install.log /norestart' -Wait; `
+          $typeMockExe = (gci 'C:\Program Files (x86)\Typemock\Isolator\*\BuildScripts\TMockRunner.exe' | Select-Object -First 1).FullName; `
+          & $typeMockExe -register ${{ secrets:TYPEMOCK_COMPANY }} ${{ secrets:TYPEMOCK_LICENSE }};
     #- name: msbuild
     #  run: .\scripts\buildMaster.ps1
     #  shell: powershell
