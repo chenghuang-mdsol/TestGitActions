@@ -13,7 +13,7 @@ jobs:
    #   image: cr.microsoft.com/windows/servercore:ltsc2019
    steps:
     - name: login docker
-      run: echo 'AKCp5e3Kxf9ygMr8jfSRVwWr7iWK6vBDzMr9BXMecRzs7zqywEkM7qMtdKJfEn3eWVH2h9UvD' | docker login -u chuang mdsol-rave-containers.jfrog.io --password-stdin
+      run: docker login mdsol-rave-containers.jfrog.io -u rave-ci -p 'AKCp5dK4qUwF1k5pfoPFUb1fEv7JQLqFK86JqBQciBRB8MtpMHp4fv8KbYHoLbAQ72Q3NpsnY'
       shell: powershell
     - name: pull docker
       run: docker run -d mdsol-rave-containers.jfrog.io/rave-containers/ci/buildtools2019/latest powershell;
